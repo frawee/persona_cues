@@ -13,6 +13,11 @@ def detect_answers(response, options, labels):
     response = response.lower()
     for i, option in enumerate(options):
         if option in response:
+            for alt_option in list(set(options) - set([option])):
+                if option == "NITA" and alt_option == "ITA":
+                    continue
+                if alt_option in response:
+                    return "no option found"
             return labels[i]
     return "no option found"
 
@@ -20,10 +25,10 @@ def detect_answers(response, options, labels):
 def detect_answers_sbb(response, domain):
     response = response.lower()
     if domain != "salaries":
-        for option in ["yes", "no"]:
-            if option in response.lower():  # added conversion to lower case
-                return option
-
+        if "yes" in response and not "no" in response:
+            return "yes"
+        elif "no" in response and not "yes" in response:
+            return "no"
     else:
         response = response.replace(",", "")
         m = re.search(r"^[^\d]*(\d+)", response)
@@ -131,14 +136,21 @@ if __name__ == "__main__":
             )
         else:
             if dataset == "aita":
-                options = ["yes", "no", "ITA", "YTA", "NITA", "NITIA"]
+                options = [
+                    "yes",
+                    "no",
+                    "YTA",
+                    "NITA",
+                    "NITIA",
+                    "ITA",
+                ]
                 labels = [
                     "asshole",
                     "not the asshole",
                     "asshole",
+                    "not the asshole",
+                    "not the asshole",
                     "asshole",
-                    "not the asshole",
-                    "not the asshole",
                 ]
 
             elif dataset == "mmmd":
