@@ -1,6 +1,6 @@
-# One Persona, Many Cues, Different Results
+# One Persona, Many Cues, Different Results: How Sociodemographic Cues Impact LLM Personalization
 
-This is the code for the paper 'One Persona, Many Cues, Different Results'.
+This is the code for the paper ['One Persona, Many Cues, Different Results: How Sociodemographic Cues Impact LLM Personalization'](https://arxiv.org/abs/2601.18572).
 
 To replicate our findings, please follow these steps.
 
